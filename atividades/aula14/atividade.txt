@@ -1,0 +1,148 @@
+1º Explique COM AS SUAS PALAVRAS o que é public, private e protected.
+public é acessíveis por qualquer pessoa
+e o
+private só podem ser acessados dentro da própria classe
+
+
+
+
+
+
+
+2º Explique COM AS SUAS PALAVRAS o que é GET e SET dentro de uma classe.
+get ele lê um valor privado de forma segura 
+e o
+set ele altera um valor privado de forma mas resposavel
+
+
+
+
+
+3º Explique COM AS SUAS PALAVRAS para que serve o encapsulamento.
+Ele esconder os detalhes internos de uma classe e permite controlar o que pode ser lido ou alterado
+
+
+
+
+atv 2-
+class Aluno {
+  // Campos privados
+  #nome;
+  #nota;
+
+  constructor(nome, nota) {
+    this.#nome = nome;
+    this.setNota(nota); // setter para validação
+  }
+
+  getNome() {
+    return this.#nome;
+  }
+
+  setNome(novoNome) {
+    this.#nome = novoNome;
+  }
+
+  getNota() {
+    return this.#nota;
+  }
+
+  // validação
+  setNota(novaNota) {
+    if (novaNota >= 0 && novaNota <= 10) {
+      this.#nota = novaNota;
+    } else {
+      console.log("Nota inválida. A nota deve estar entre 0 e 10.");
+    }
+  }
+}
+
+atv 3-
+
+
+
+
+
+
+
+
+
+
+
+
+atv 4-
+class ContaBancaria {
+  // Campos privados
+  #titular;
+  #saldo;
+
+  // Construtor
+  constructor(titular, saldoInicial = 0) {
+    this.#titular = titular;
+    this.#saldo = saldoInicial >= 0 ? saldoInicial : 0;
+  }
+
+  // Getter para o titular
+  getTitular() {
+    return this.#titular;
+  }
+
+  // Getter para o saldo (somente leitura)
+  getSaldo() {
+    return this.#saldo;
+  }
+
+  // Método para depositar
+  depositar(valor) {
+    if (valor > 0) {
+      this.#saldo += valor;
+      console.log(`Depósito de R$${valor.toFixed(2)} realizado com sucesso.`);
+    } else {
+      console.log("Erro: O valor do depósito deve ser positivo.");
+    }
+  }
+
+  // Método para sacar
+  sacar(valor) {
+    if (valor <= 0) {
+      console.log("Erro: O valor do saque deve ser positivo.");
+    } else if (valor > this.#saldo) {
+      console.log("Erro: Saldo insuficiente para saque.");
+    } else {
+      this.#saldo -= valor;
+      console.log(`Saque de R$${valor.toFixed(2)} realizado com sucesso.`);
+    }
+  }
+
+  // Exibir informações da conta
+  exibirResumo() {
+    console.log(`Titular: ${this.#titular}`);
+    console.log(`Saldo atual: R$${this.#saldo.toFixed(2)}`);
+  }
+}
+
+atv 5-
+class Usuario {
+  constructor(nome, senha) {
+    this.nome = nome;
+    this._senha = senha; // Atributo "protegido" por convenção
+  }
+
+  // Método para verificar se a senha está correta
+  verificarSenha(senhaDigitada) {
+    return this._senha === senhaDigitada;
+  }
+
+  // Método para alterar a senha com verificação de senha atual
+  alterarSenha(senhaAtual, novaSenha) {
+    if (this.verificarSenha(senhaAtual)) {
+      this._senha = novaSenha;
+      console.log("Senha alterada com sucesso.");
+    } else {
+      console.log("Senha atual incorreta. Não foi possível alterar.");
+    }
+  }
+}
+
+
+
